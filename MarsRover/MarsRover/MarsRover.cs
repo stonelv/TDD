@@ -6,7 +6,8 @@ namespace MarsRover
     {
         private int x;
         private int y;
-        private DIRECTION direction;
+        //private DIRECTION direction;
+        private Direct direct;
         private int length;
         private int width;
 
@@ -14,7 +15,24 @@ namespace MarsRover
         {
             this.x = x;
             this.y = y;
-            this.direction = direction;
+            //this.direction = direction;
+            this.direct = createDirect(direction);
+        }
+
+        private Direct createDirect(DIRECTION direction)
+        {
+            switch(direction)
+            {
+                case DIRECTION.EAST:
+                    return new East();
+                case DIRECTION.SOUTH:
+                    return new South();
+                case DIRECTION.WEST:
+                    return new West();
+                case DIRECTION.NORTH:
+                    return new North();
+            }
+            return null;
         }
 
         public void setRange(int length, int width)
@@ -25,7 +43,7 @@ namespace MarsRover
         
         public void moveForward(int distance)
         {
-            switch(direction)
+            switch(this.direct.getDirection())
             {
                 case DIRECTION.EAST:
                     addX(distance);
@@ -77,45 +95,17 @@ namespace MarsRover
 
         public DIRECTION getDirection()
         {
-            return this.direction;
+            return this.direct.getDirection();
         }
 
         public void turnLeft()
         {
-            switch(direction)
-            {
-                case DIRECTION.EAST:
-                    this.direction = DIRECTION.NORTH;
-                    break;
-                case DIRECTION.SOUTH:
-                    this.direction = DIRECTION.EAST;
-                    break;
-                case DIRECTION.WEST:
-                    this.direction = DIRECTION.SOUTH;
-                    break;
-                case DIRECTION.NORTH:
-                    this.direction = DIRECTION.WEST;
-                    break;
-            }
+            this.direct = this.direct.turnLeft();
         }
 
         public void turnRight()
         {
-            switch(direction)
-            {
-                case DIRECTION.EAST:
-                    this.direction = DIRECTION.SOUTH;
-                    break;
-                case DIRECTION.SOUTH:
-                    this.direction = DIRECTION.WEST;
-                    break;
-                case DIRECTION.WEST:
-                    this.direction = DIRECTION.NORTH;
-                    break;
-                case DIRECTION.NORTH:
-                    this.direction = DIRECTION.EAST;
-                    break;
-            }
+            this.direct = this.direct.turnRight();
         }
     }
 }

@@ -21,8 +21,18 @@ namespace MarsRoverTest
         public void test_move_forward(int distance)
         {
             marsRover.moveForward(distance);
-            Assert.AreEqual(marsRover.getX(), 0 + distance);
-            Assert.AreEqual(marsRover.getY(), 0);
+            Assert.AreEqual(marsRover.getX(), 10 + distance);
+            Assert.AreEqual(marsRover.getY(), 10);
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        [TestCase(1)]
+        public void test_move_backward(int distance)
+        {
+            marsRover.moveBackward(distance);
+            Assert.AreEqual(marsRover.getX(), 10 - distance);
+            Assert.AreEqual(marsRover.getY(), 10);
         }
 
         [Test]
@@ -34,15 +44,6 @@ namespace MarsRoverTest
             Assert.AreEqual(marsRover.getX(), 0);
         }
 
-        [TestCase(0)]
-        [TestCase(-1)]
-        [TestCase(1)]
-        public void test_move_backward(int distance)
-        {
-            marsRover.moveBackward(distance);
-            Assert.AreEqual(marsRover.getX(), 0 - distance);
-            Assert.AreEqual(marsRover.getY(), 0);
-        }
 
         [Test]
         public void test_turn_left()
